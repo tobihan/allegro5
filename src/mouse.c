@@ -1014,7 +1014,10 @@ static void set_mouse_etc(void)
 
    set_mouse_range(0, 0, SCREEN_W-1, SCREEN_H-1);
    set_mouse_speed(2, 2);
-   position_mouse(SCREEN_W/2, SCREEN_H/2);
+
+   /* We don't need to change the mouse position in windowed modes */
+   if (!is_windowed_mode())
+      position_mouse(SCREEN_W/2, SCREEN_H/2);
 }
 
 

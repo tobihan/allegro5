@@ -120,6 +120,7 @@ SYSTEM_DRIVER system_dos =
    NULL, /* find_resource */
    NULL, /* set_window_title */
    NULL, /* set_close_button_callback */
+   NULL, /* set_resize_callback */
    NULL, /* message */
    sys_dos_assert,
    sys_dos_save_console_state,

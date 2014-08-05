@@ -72,6 +72,7 @@ SYSTEM_DRIVER system_linux =
    _unix_find_resource,
    NULL, /* set_window_title */
    NULL, /* set_close_button_callback */
+   NULL, /* set_resize_callback */
    sys_linux_message,
    NULL, /* assert */
    NULL,

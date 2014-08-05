@@ -60,6 +60,7 @@ SYSTEM_DRIVER system_qnx =
    _unix_find_resource,
    qnx_sys_set_window_title,
    qnx_sys_set_close_button_callback,
+   NULL,  /* AL_METHOD(int, set_resize_callback, (AL_METHOD(void, proc, (RESIZE_DISPLAY_EVENT *ev)))); */
    qnx_sys_message,
    NULL,  /* AL_METHOD(void, assert, (AL_CONST char *msg)); */
    NULL,  /* AL_METHOD(void, save_console_state, (void)); */

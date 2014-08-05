@@ -76,6 +76,7 @@ SYSTEM_DRIVER system_macos ={
    NULL, /* find_resource */
    mac_set_window_title,
    NULL, /* set_close_button_callback */
+   NULL, /* set_resize_callback */
    mac_message,
    mac_assert,
    NULL, /* save_console_state */

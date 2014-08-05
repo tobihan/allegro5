@@ -54,6 +54,7 @@ SYSTEM_DRIVER system_psp =
    NULL,  /* AL_METHOD(int, find_resource, (char *dest, AL_CONST char *resource, int size)); */
    NULL,  /* AL_METHOD(void, set_window_title, (AL_CONST char *name)); */
    NULL,  /* AL_METHOD(int, set_close_button_callback, (AL_METHOD(void, proc, (void)))); */
+   NULL,  /* AL_METHOD(int, set_resize_callback, (AL_METHOD(void, proc, (RESIZE_DISPLAY_EVENT *ev)))); */
    psp_message,  /* AL_METHOD(void, message, (AL_CONST char *msg)); */
    NULL,  /* AL_METHOD(void, assert, (AL_CONST char *msg)); */
    NULL,  /* AL_METHOD(void, save_console_state, (void)); */

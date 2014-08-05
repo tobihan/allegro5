@@ -89,7 +89,8 @@ GFX_DRIVER gfx_allegro_gl_fullscreen =
    allegro_gl_x_fetch_mode_list,
 #else
    NULL,
-#endif
+#endif,
+   NULL, /* acknowledge_resize */
    0, 0,
    0,
    0, 0,
@@ -124,6 +125,7 @@ GFX_DRIVER gfx_allegro_gl_windowed =
    NULL, NULL,
    allegro_gl_set_blender_mode,
    NULL,                        /* No fetch_mode_list */
+   NULL,                        /* acknowledge_resize */
    0, 0,
    0,
    0, 0,

@@ -335,7 +335,7 @@ information about how to install Allegro and link your program with it.
       }<endblock>
 
 @@void @set_window_title(const char *name);
-@xref set_close_button_callback, set_uformat
+@xref set_close_button_callback, set_uformat, set_resize_callback
 @eref exunicod
 @shortdesc Sets the window title of the Allegro program.
    On platforms that are capable of it, this routine alters the window title 
@@ -387,6 +387,25 @@ information about how to install Allegro and link your program with it.
 @retval
    Returns zero on success and non-zero on failure (e.g. the feature is not
    supported by the platform).
+
+@@int @set_resize_callback(void (*proc)(RESIZE_DISPLAY_EVENT *ev));
+@xref set_window_title, RESIZE_DISPLAY_EVENT
+@eref exresize
+@shortdesc Handles the user resizing of the window.
+   On platforms that support windowed modes, you can set a callback
+   routine to be called when the window is resized by the user.
+
+   TODO
+@retval
+   Returns zero on success and non-zero on failure (e.g. the feature
+   is not supported by the platform or current graphics mode).
+
+@@int @acknowledge_resize()
+@xref set_resize_callback, screen
+@shortdesc TODO
+   After a resize callback event is received, you must call this
+   function from the main thread to make the resize effective, i.e. to
+   update the screen bitmap size.
 
 @@int @desktop_color_depth();
 @xref get_desktop_resolution, set_color_depth, set_gfx_mode
@@ -968,6 +987,18 @@ available in past/future versions of Allegro.
    Opaque structure for handling LZSS decompression. Read chapter "File and
    compression routines for a description on how to obtain/use this
    structure.
+
+@@typedef struct @RESIZE_DISPLAY_EVENT
+@xref set_resize_callback
+@eref exresize
+@shortdesc TODO.
+   TODO.
+<codeblock>
+   int old_w, old_h;
+   int new_w, new_h;
+   int is_maximized : 1;
+   int is_restored : 1;
+</codeblock>
 
 
 
@@ -16226,6 +16257,9 @@ and avoid missing any important bit of information.
    
    The fourth test reads two bitmaps, and dumps them back into a
    single file, using a custom vtable again.
+
+@@Example @exresize
+@xref set_resize_callback, RESIZE_DISPLAY_EVENT, set_close_button_callback
 
 @# end genexamp.py chunk
 

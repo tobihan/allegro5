@@ -120,6 +120,7 @@ GFX_DRIVER gfx_allegro_gl_default =
    NULL, NULL,
    NULL,        /* set_blender_mode */
    NULL,        /* No fetch_mode_list */
+   NULL,        /* acknowledge_resize */
    0, 0,
    0,
    0, 0,

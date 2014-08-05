@@ -12,6 +12,8 @@
  *
  *      By Stefan Schimanski.
  *
+ *      Added resize support by David Capello.
+ *
  *      See readme.txt for copyright information.
  */
 
@@ -56,6 +58,13 @@ int gfx_crit_sect_nesting = 0;
 
 /* close button user hook */
 void (*user_close_proc)(void) = NULL;
+
+/* TRUE if the user resized the window and user_resize_proc hook
+   should be called. */
+static BOOL sizing = FALSE;
+
+/* resize user hook (called when the windows is resized */
+void (*user_resize_proc)(RESIZE_DISPLAY_EVENT *ev) = NULL;
 
 /* window thread internals */
 #define ALLEGRO_WND_CLASS "AllegroWindow"
@@ -210,8 +219,6 @@ void wnd_schedule_proc(int (*proc) (void))
  */
 static LRESULT CALLBACK directx_wnd_proc(HWND wnd, UINT message, WPARAM wparam, LPARAM lparam)
 {
-   PAINTSTRUCT ps;
-
    if (message == msg_call_proc)
       return ((int (*)(void))wparam) ();
 
@@ -260,8 +267,11 @@ static LRESULT CALLBACK directx_wnd_proc(HWND wnd, UINT message, WPARAM wparam, 
 
       case WM_SETCURSOR:
          if (!user_wnd_proc || _mouse_installed) {
-            mouse_set_syscursor();
-            return 1;  /* not TRUE */
+            int hittest = LOWORD(lparam);
+            if (hittest == HTCLIENT) {
+               mouse_set_syscursor();
+               return 1;  /* not TRUE */
+            }
          }
          break;
 
@@ -318,13 +328,101 @@ static LRESULT CALLBACK directx_wnd_proc(HWND wnd, UINT message, WPARAM wparam, 
          }
          break;
 
-      case WM_SIZE:
+      case WM_SIZE: {
+         int old_width = wnd_width;
+         int old_height = wnd_height;
+
          wnd_width = LOWORD(lparam);
          wnd_height = HIWORD(lparam);
+
+         if ((wnd_width > 0 && wnd_height > 0) &&
+             (sizing || (wparam == SIZE_MAXIMIZED ||
+                         wparam == SIZE_RESTORED))) {
+            sizing = FALSE;
+            if (user_resize_proc) {
+               RESIZE_DISPLAY_EVENT ev;
+               ev.old_w = old_width;
+               ev.old_h = old_height;
+               ev.new_w = wnd_width;
+               ev.new_h = wnd_height;
+               ev.is_maximized = (wparam == SIZE_MAXIMIZED) ? 1: 0;
+               ev.is_restored = (wparam == SIZE_RESTORED) ? 1: 0;
+
+               (*user_resize_proc)(&ev);
+            }
+         }
          break;
+      }
+
+      case WM_SIZING:
+         if (user_resize_proc) {
+            LPRECT rc = (LPRECT)lparam;
+            int w = (rc->right - rc->left);
+            int h = (rc->bottom - rc->top);
+            int dw = (w % 16);
+            int dh = (h % 16);
+
+            switch (wparam) {
+
+            case WMSZ_LEFT:
+            case WMSZ_TOPLEFT:
+            case WMSZ_BOTTOMLEFT: {
+               if (w < 192)
+                  rc->left = rc->right - 192;
+               else
+                  rc->left += dw;
+               break;
+            }
+
+            case WMSZ_RIGHT:
+            case WMSZ_TOPRIGHT:
+            case WMSZ_BOTTOMRIGHT: {
+               if (w < 192)
+                  rc->right = rc->left + 192;
+               else
+                  rc->right -= dw;
+               break;
+            }
+
+            case WMSZ_TOP:
+            case WMSZ_BOTTOM:
+               /* Ignore */
+               break;
+            }
+
+            switch (wparam) {
+
+            case WMSZ_TOP:
+            case WMSZ_TOPLEFT:
+            case WMSZ_TOPRIGHT:
+               if (h < 96)
+                  rc->top = rc->bottom - 96;
+               else
+                  rc->top += dh;
+               break;
+
+            case WMSZ_BOTTOM:
+            case WMSZ_BOTTOMLEFT:
+            case WMSZ_BOTTOMRIGHT:
+               if (h < 96)
+                  rc->bottom = rc->top + 96;
+               else
+                  rc->bottom -= dh;
+               break;
+
+            case WMSZ_LEFT:
+            case WMSZ_RIGHT:
+               /* Ignore */
+               break;
+            }
+
+            sizing = TRUE;
+            return TRUE;
+         }
 
       case WM_PAINT:
          if (!user_wnd_proc || win_gfx_driver) {
+            PAINTSTRUCT ps;
             BeginPaint(wnd, &ps);
             if (win_gfx_driver && win_gfx_driver->paint)
                 win_gfx_driver->paint(&ps.rcPaint);

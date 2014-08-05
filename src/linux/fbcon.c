@@ -89,6 +89,7 @@ GFX_DRIVER gfx_fbcon =
    fb_restore,
    NULL,    // AL_METHOD(void, set_blender_mode, (int mode, int r, int g, int b, int a));
    NULL,                         /* no fetch mode hook */
+   NULL,                         /* AL_METHOD(struct BITMAP *, acknowledge_resize, (void)); */
    0, 0,
    TRUE,
    0, 0, 0, 0, FALSE

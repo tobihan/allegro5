@@ -95,6 +95,7 @@ GFX_DRIVER gfx_xdga2 =
    NULL, NULL,
    NULL,
    _xdga2_fetch_mode_list,
+   NULL,                         /* AL_METHOD(struct BITMAP *, acknowledge_resize, (void)); */
    640, 480,
    TRUE,
    0, 0,
@@ -127,6 +128,7 @@ GFX_DRIVER gfx_xdga2_soft =
    NULL, NULL,
    NULL,
    _xdga2_fetch_mode_list,
+   NULL,                         /* AL_METHOD(struct BITMAP *, acknowledge_resize, (void)); */
    640, 480,
    TRUE,
    0, 0,

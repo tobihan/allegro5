@@ -147,6 +147,7 @@ GFX_DRIVER gfx_modex =
    _restore_vga_mode,
    NULL,                         /* AL_METHOD(void, set_blender_mode, (int mode, int r, int g, int b, int a)); */
    modex_fetch_mode_list,
+   NULL,                         /* AL_METHOD(struct BITMAP *, acknowledge_resize, (void)); */
    0, 0,
    TRUE,
    0, 0,
@@ -211,6 +212,7 @@ GFX_DRIVER gfx_xtended =
    NULL, NULL,                   /* no state saving */
    NULL,                         /* AL_METHOD(void, set_blender_mode, (int mode, int r, int g, int b, int a)); */
    xtended_fetch_mode_list,
+   NULL,                         /* AL_METHOD(struct BITMAP *, acknowledge_resize, (void)); */
    640, 400,
    TRUE,
    0, 0,

@@ -74,6 +74,7 @@ GFX_DRIVER gfx_svgalib =
    svga_restore,
    NULL,                        /* AL_METHOD(void, set_blender_mode, (int mode, int r, int g, int b, int a)); */
    NULL,			 /* svga_fetch_mode_list disabled */
+   NULL,                         /* AL_METHOD(struct BITMAP *, acknowledge_resize, (void)); */
    0, 0,
    TRUE,
    0, 0, 0, 0, FALSE

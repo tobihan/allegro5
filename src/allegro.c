@@ -545,6 +545,23 @@ int set_close_button_callback(void (*proc)(void))
 
 
 
+/* set_resize_callback:
+ *  Installs a callback function to be called when the window is
+ *  resized. Returns 0 on success and -1 on failure (e.g. feature
+ *  not supported).
+ */
+int set_resize_callback(void (*proc)(RESIZE_DISPLAY_EVENT *ev))
+{
+   ASSERT(system_driver);
+
+   if (system_driver->set_resize_callback)
+      return system_driver->set_resize_callback(proc);
+
+   return -1;
+}
+
+
+
 /* debug_exit:
  *  Closes the debugging output files.
  */
@@ -757,7 +774,7 @@ SYSTEM_DRIVER system_none =
    sys_none_exit,
    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
    sys_no_driver, sys_no_driver, sys_no_driver, sys_no_driver,
    sys_no_driver, sys_no_driver, sys_no_driver
 };

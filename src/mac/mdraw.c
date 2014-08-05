@@ -83,6 +83,7 @@ GFX_DRIVER gfx_drawsprocket ={
    NULL,
    NULL,    // AL_METHOD(void, set_blender_mode, (int mode, int r, int g, int b, int a));
    NULL,
+   NULL,    // AL_METHOD(struct BITMAP *, acknowledge_resize, (void));
    640, 480,
    TRUE,
    0,

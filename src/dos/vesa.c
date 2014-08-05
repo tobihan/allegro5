@@ -66,6 +66,7 @@ GFX_DRIVER gfx_vesa_1 =
    NULL, NULL,                   /* no state saving */
    NULL,    /* AL_METHOD(void, set_blender_mode, (int mode, int r, int g, int b, int a)); */
    vesa_fetch_mode_list,         /* aye! */
+   NULL,                         /* AL_METHOD(struct BITMAP *, acknowledge_resize, (void)); */
    0, 0, FALSE, 0, 0, 0, 0, FALSE
 };
 
@@ -90,6 +91,7 @@ GFX_DRIVER gfx_vesa_2b =
    NULL, NULL,                   /* no state saving */
    NULL,
    vesa_fetch_mode_list,         /* aye! */
+   NULL,                         /* AL_METHOD(struct BITMAP *, acknowledge_resize, (void)); */
    0, 0, FALSE, 0, 0, 0, 0, FALSE
 };
 
@@ -114,6 +116,7 @@ GFX_DRIVER gfx_vesa_2l =
    NULL, NULL,                   /* no state saving */
    NULL,
    vesa_fetch_mode_list,         /* aye! */
+   NULL,                         /* AL_METHOD(struct BITMAP *, acknowledge_resize, (void)); */
    0, 0, FALSE, 0, 0, 0, 0, FALSE
 };
 
@@ -140,6 +143,7 @@ GFX_DRIVER gfx_vesa_3 =
    NULL, NULL,                   /* no state saving */
    NULL,
    vesa_fetch_mode_list,         /* aye! */
+   NULL,                         /* AL_METHOD(struct BITMAP *, acknowledge_resize, (void)); */
    0, 0, FALSE, 0, 0, 0, 0, FALSE
 };
 
