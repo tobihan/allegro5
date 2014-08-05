@@ -389,23 +389,26 @@ information about how to install Allegro and link your program with it.
    supported by the platform).
 
 @@int @set_resize_callback(void (*proc)(RESIZE_DISPLAY_EVENT *ev));
-@xref set_window_title, RESIZE_DISPLAY_EVENT
+@xref acknowledge_resize, RESIZE_DISPLAY_EVENT
 @eref exresize
 @shortdesc Handles the user resizing of the window.
    On platforms that support windowed modes, you can set a callback
    routine to be called when the window is resized by the user.
 
-   TODO
+   Calling this function with a NULL pointer disables window resizing.
 @retval
    Returns zero on success and non-zero on failure (e.g. the feature
    is not supported by the platform or current graphics mode).
 
 @@int @acknowledge_resize()
 @xref set_resize_callback, screen
-@shortdesc TODO
+@eref exresize
+@shortdesc Update the screen bitmap size after a window resize
    After a resize callback event is received, you must call this
    function from the main thread to make the resize effective, i.e. to
    update the screen bitmap size.
+@retval
+   Returns zero on success and non-zero on failure.
 
 @@int @desktop_color_depth();
 @xref get_desktop_resolution, set_color_depth, set_gfx_mode
@@ -991,14 +994,16 @@ available in past/future versions of Allegro.
 @@typedef struct @RESIZE_DISPLAY_EVENT
 @xref set_resize_callback
 @eref exresize
-@shortdesc TODO.
-   TODO.
+@shortdesc Structure containing information about a window resize.
+   This structure is passed to the callback set with set_resize_callback()
+   after the user resized the window. It contains the old and new width
+   and height of the window.
 <codeblock>
    int old_w, old_h;
    int new_w, new_h;
    int is_maximized;
    int is_restored;
-</codeblock>
+<endblock>
 
 
 
@@ -16260,6 +16265,7 @@ and avoid missing any important bit of information.
 
 @@Example @exresize
 @xref set_resize_callback, RESIZE_DISPLAY_EVENT, set_close_button_callback
+@shortdesc Using a resizable window.
    This program shows how to create a window that can be used as a
    normal application in your native operating system, i.e. a
    window that can be:
