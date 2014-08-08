@@ -5,7 +5,6 @@
  *    1) closed with the escape key and the close window button,
  *    2) resized from the window borders,
  *    3) maximized/restored, and
- *    4) switched from/to fullscreen windowed mode.
  */
 
 
@@ -17,7 +16,7 @@
    window */
 int closed = FALSE;
 
-int resizing_enabled = 0;
+int resizing_enabled = FALSE;
 int resized = FALSE;
 
 RESIZE_DISPLAY_EVENT last_event;
@@ -45,14 +44,14 @@ void switch_resizing()
 {
    const char* title = "Resize Window (not supported)";
 
-   resizing_enabled ^= 1;
+   resizing_enabled = !resizing_enabled;
 
    if (resizing_enabled) {
       if (set_resize_callback(resize_hook) == 0) {
          title = "Resize Window (enabled)";
       }
       else {
-         resizing_enabled = 0;
+         resizing_enabled = FALSE;
       }
    }
    else {
@@ -62,13 +61,6 @@ void switch_resizing()
    }
 
    set_window_title(title);
-}
-
-
-
-void switch_fullscreen()
-{
-   /* TODO */
 }
 
 
@@ -146,9 +138,6 @@ int main(int argc, char *argv[])
                break;
             case KEY_R:
                switch_resizing();
-               break;
-            case KEY_F11:
-               switch_fullscreen();
                break;
          }
       }
