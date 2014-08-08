@@ -89,7 +89,7 @@ GFX_DRIVER gfx_allegro_gl_fullscreen =
    allegro_gl_x_fetch_mode_list,
 #else
    NULL,
-#endif,
+#endif
    NULL, /* acknowledge_resize */
    0, 0,
    0,

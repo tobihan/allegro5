@@ -996,8 +996,8 @@ available in past/future versions of Allegro.
 <codeblock>
    int old_w, old_h;
    int new_w, new_h;
-   int is_maximized : 1;
-   int is_restored : 1;
+   int is_maximized;
+   int is_restored;
 </codeblock>
 
 
@@ -16260,6 +16260,15 @@ and avoid missing any important bit of information.
 
 @@Example @exresize
 @xref set_resize_callback, RESIZE_DISPLAY_EVENT, set_close_button_callback
+   This program shows how to create a window that can be used as a
+   normal application in your native operating system, i.e. a
+   window that can be:
+
+   <ul><li>closed with close window button (or ESC key),
+
+   <li>resized from the window borders, and
+
+   <li>maximized/restored.</ul>
 
 @# end genexamp.py chunk
 

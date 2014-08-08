@@ -68,6 +68,8 @@ AL_FUNC(int, _xdga_scroll_screen, (int x, int y));
 
 AL_FUNC(GFX_MODE_LIST*, _xwin_fetch_mode_list, (void));
 
+AL_FUNC(void, _xwin_enable_resize, (int state));
+
 /* Defined in xvtable.c.  */
 AL_FUNC(void, _xwin_replace_vtable, (struct GFX_VTABLE *vtable));
 AL_FUNC(void, _xwin_drawing_mode, (void));

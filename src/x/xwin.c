@@ -860,17 +860,7 @@ static BITMAP *_xwin_private_create_screen(GFX_DRIVER *drv, int w, int h,
       XResizeWindow(_xwin.display, _xwin.wm_window, w, h);
 
       if (!_xwin.resize_callback) {
-         XSizeHints *hints = XAllocSizeHints();
-
-         /* Set size and position hints for Window Manager.  */
-         if (hints) {
-            hints->flags = PMinSize | PMaxSize | PBaseSize;
-            hints->min_width  = hints->max_width  = hints->base_width  = w;
-            hints->min_height = hints->max_height = hints->base_height = h;
-            XSetWMNormalHints(_xwin.display, _xwin.wm_window, hints);
-
-            XFree(hints);
-         }
+         _xwin_enable_resize(FALSE);
       }
 
       /* Map the window managed window.  */
@@ -2524,8 +2514,8 @@ static void _xwin_private_process_event(XEvent *event)
 	    ev.old_h = old_height;
 	    ev.new_w = new_width;
 	    ev.new_h = new_height;
-	    ev.is_maximized = 0;
-	    ev.is_restored = 0;
+	    ev.is_maximized = FALSE;
+	    ev.is_restored = FALSE;
 
 	    _xwin.resize_callback(&ev);
 	 }
@@ -3148,6 +3138,23 @@ GFX_MODE_LIST *_xwin_fetch_mode_list(void)
    list = _xwin_private_fetch_mode_list();
    XUNLOCK();
    return list;
+}
+
+
+
+/* Set size and position hints for Window Manager.  */
+void _xwin_enable_resize(int state)
+{
+   XSizeHints *hints = XAllocSizeHints();
+   if (hints) {
+      if (!state) {
+         hints->flags = PMinSize | PMaxSize | PBaseSize;
+         hints->min_width  = hints->max_width  = hints->base_width  = _xwin.window_width;
+         hints->min_height = hints->max_height = hints->base_height = _xwin.window_height;
+      }
+      XSetWMNormalHints(_xwin.display, _xwin.wm_window, hints);
+      XFree(hints);
+   }
 }
 
 

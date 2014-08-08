@@ -221,8 +221,8 @@ static void prepare_window_for_animation(int refresh_view)
       ev.old_h = old_height;
       ev.new_w = new_width;
       ev.new_h = new_height;
-      ev.is_maximized = 0;
-      ev.is_restored = 0;
+      ev.is_maximized = FALSE;
+      ev.is_restored = FALSE;
 
       osx_resize_callback(&ev);
    }
@@ -509,10 +509,10 @@ static BITMAP *private_osx_qz_window_init(int w, int h, int v_w, int v_h, int co
 	}
 	
 	osx_window = [[AllegroWindow alloc] initWithContentRect: rect
-                                                  styleMask: (NSTitledWindowMask | NSClosableWindowMask |
-                                                              NSMiniaturizableWindowMask | NSResizableWindowMask)
-													backing: NSBackingStoreBuffered
-													  defer: NO];
+                                                      styleMask: (NSTitledWindowMask | NSClosableWindowMask |
+                                                                  NSMiniaturizableWindowMask | NSResizableWindowMask)
+                                                        backing: NSBackingStoreBuffered
+                                                          defer: NO];
 	
 	window_delegate = [[[AllegroWindowDelegate alloc] init] autorelease];
 	[osx_window setDelegate: window_delegate];

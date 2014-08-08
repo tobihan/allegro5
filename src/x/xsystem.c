@@ -294,23 +294,7 @@ static int _xwin_sysdrv_set_close_button_callback(void (*proc)(void))
 static int _xwin_sysdrv_set_resize_callback(void (*proc)(RESIZE_DISPLAY_EVENT *ev))
 {
    _xwin.resize_callback = proc;
-
-   /* Set size and position hints for Window Manager.  */
-   XSizeHints *hints = XAllocSizeHints();
-   if (hints) {
-     /* If the user didn't specify a resize procedure, we have to lock
-        the window size (min/max/base sizes are all the same) */
-     if (!proc) {
-       hints->flags = PMinSize | PMaxSize | PBaseSize;
-       hints->min_width  = hints->max_width  = hints->base_width  = SCREEN_W;
-       hints->min_height = hints->max_height = hints->base_height = SCREEN_H;
-     }
-     
-     XSetWMNormalHints(_xwin.display, _xwin.wm_window, hints);
-
-     XFree(hints);
-   }
-
+   _xwin_enable_resize(proc != NULL);
    return 0;
 }
 

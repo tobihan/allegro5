@@ -36,8 +36,8 @@ typedef struct RESIZE_DISPLAY_EVENT
 {
    int old_w, old_h;
    int new_w, new_h;
-   int is_maximized : 1; /* 1 if this event is because the user maximized the window */
-   int is_restored : 1;  /* 1 if this event is because the user restored the window */
+   int is_maximized; /* TRUE if this event is because the user maximized the window */
+   int is_restored;  /* TRUE if this event is because the user restored the window */
 } RESIZE_DISPLAY_EVENT;
 
 #define ALLEGRO_ERROR_SIZE 256
