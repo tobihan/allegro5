@@ -80,7 +80,11 @@
  */
 #define IRQ_STACKS      8
 
-
+/* Tell GCC our stack is not executable
+ */
+#ifdef __ELF__
+.section .note.GNU-stack,"",%progbits
+#endif
 
 #endif   /* ifndef ALLEGRO_ASMDEFS_INC */
 
