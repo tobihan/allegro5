@@ -36,6 +36,10 @@
    #include <math.h>
 #endif
 
+/* Linux-kernel specific errnos */
+#ifndef ESTRPIPE
+#define ESTRPIPE 86
+#endif
 
 #ifndef SND_PCM_FORMAT_S16_NE
    #ifdef ALLEGRO_BIG_ENDIAN
