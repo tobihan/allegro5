@@ -72,7 +72,7 @@ foreach(page ${DOC_SRCS})
     string(REPLACE "._tx" "" basename ${basename})
 
     set(page ${CMAKE_CURRENT_SOURCE_DIR}/${page})
-    if(${page} MATCHES "/build/")
+    if(${page} MATCHES "/src/build/")
         set(txt_out ${CMAKE_CURRENT_BINARY_DIR}/build/${basename}.txt)
         set(html_out ${CMAKE_CURRENT_BINARY_DIR}/build/${basename}.html)
     else()
