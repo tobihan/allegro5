@@ -116,11 +116,9 @@ int main(int argc, char *argv[])
          textout_ex(buffer, font, "Press R to enable/disable resizing", 8, 8, c, -1);
 
          if (resized) {
-            textprintf_ex(buffer, font, 8, 16, c, -1, "w,h = %d,%d %s",
+            textprintf_ex(buffer, font, 8, 16, c, -1, "w,h = %d,%d",
                           last_event.new_w,
-                          last_event.new_h,
-                          last_event.is_maximized ? " (maximized)":
-                          (last_event.is_restored ? " (restored)": ""));
+                          last_event.new_h);
 
             resized = FALSE;
          }

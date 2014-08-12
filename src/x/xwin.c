@@ -2514,8 +2514,6 @@ static void _xwin_private_process_event(XEvent *event)
 	    ev.old_h = old_height;
 	    ev.new_w = new_width;
 	    ev.new_h = new_height;
-	    ev.is_maximized = FALSE;
-	    ev.is_restored = FALSE;
 
 	    _xwin.resize_callback(&ev);
 	 }

@@ -1001,8 +1001,6 @@ available in past/future versions of Allegro.
 <codeblock>
    int old_w, old_h;
    int new_w, new_h;
-   int is_maximized;
-   int is_restored;
 <endblock>
 
 

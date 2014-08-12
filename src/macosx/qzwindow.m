@@ -221,8 +221,6 @@ static void prepare_window_for_animation(int refresh_view)
       ev.old_h = old_height;
       ev.new_w = new_width;
       ev.new_h = new_height;
-      ev.is_maximized = FALSE;
-      ev.is_restored = FALSE;
 
       osx_resize_callback(&ev);
    }

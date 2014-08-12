@@ -345,8 +345,6 @@ static LRESULT CALLBACK directx_wnd_proc(HWND wnd, UINT message, WPARAM wparam, 
                ev.old_h = old_height;
                ev.new_w = wnd_width;
                ev.new_h = wnd_height;
-               ev.is_maximized = (wparam == SIZE_MAXIMIZED) ? TRUE: FALSE;
-               ev.is_restored = (wparam == SIZE_RESTORED) ? TRUE: FALSE;
 
                (*user_resize_proc)(&ev);
             }
